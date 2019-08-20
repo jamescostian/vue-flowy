@@ -2,13 +2,16 @@ import {Graph} from 'graphlibrary'
 import d3Renderer from 'dagre-d3-renderer'
 import {FlowElement, FlowElementEdgeOptions} from './FlowElement'
 import {select} from 'd3'
+import wrap from 'word-wrap'
 
 export interface FlowChartElementOptions {
-  label?: string
+  label?: string,
+  style?: ElementCSSInlineStyle
 }
 
 export interface FlowChartOptions {
   direction: 'LR' | 'TB' | 'BT' | 'RL'
+  wordWrap?: wrap.IOptions
 }
 
 export class FlowChart {
@@ -60,7 +63,11 @@ export class FlowChart {
       }
 
       if (el.options && el.options.label) {
-        elData.label = el.options.label
+        if (this.options.wordWrap) {
+          elData.label = wrap(el.options.label, this.options.wordWrap)
+        } else {
+          elData.label = el.options.label
+        }
       }
       g.setNode(el.id, elData)
       const node = g.node(el.id)
@@ -98,6 +105,13 @@ export class FlowChart {
         }
 
         const d3Node = select(this)
+        if (el.options.style) {
+          const rect = (this as HTMLElement).querySelector('rect')!
+          window.document.body.style
+          for (const [key, value] of Object.entries(el.options.style)) {
+            (rect.style as any)[key] = value
+          }
+        }
 
         // now loop all listeners
         for (const listener of el.listeners) {

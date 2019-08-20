@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {VueFlowy, FlowChart} from 'vue-flowy'
+import {VueFlowy, FlowChart} from '../../dist/VueFlowy.umd.js'
 
 export default {
   name: "App",
@@ -15,14 +15,22 @@ export default {
   },
   data: function() {
     return {
-      chart: new FlowChart({ direction: "LR" })
+      chart: new FlowChart({
+        direction: "TB",
+        wordWrap: {
+          trim: true,
+          cut: true,
+          indent: '',
+          width: 30
+        }
+      })
     };
   },
   mounted() {
     // first flowChart
     const idea = this.chart.addElement("idea");
-    const A = this.chart.addElement("A", { label: "vscode" });
-    const B = this.chart.addElement("B", { label: "github" });
+    const A = this.chart.addElement("A", { label: "vscode alsdkfj aslkdfj laksdj flkasdjf lkasdj flkasdjlf kjsdlk jflskadj f", style: { fill: "#ccc" } });
+    const B = this.chart.addElement("B", { label: "asdlfiasjdlfkajdsfl;iajdf;lawekjfal;efjas;ldfjasdl;fkjasdl;kfjas d;lkjfas;l dkjfas ;ldkjf ;lasdkjf ;laskdj f;laksdjf l;kasdjf ;lksadjf asdkljf asd" });
     const C = this.chart.addElement("C", { label: "npm" });
     idea.leadsTo(A).leadsTo(B);
     A.leadsTo(C);
