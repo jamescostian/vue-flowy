@@ -39842,18 +39842,26 @@ var FlowChart_FlowChart = /** @class */ (function () {
             if (!el) {
                 throw new Error('Element with id ' + v + ' is not defined!');
             }
-            var d3Node = Object(d3["select"])(this);
-            if (el.options.style) {
+            // Add styles to the rectangle if they were specified
+            if (el.options.rectStyle) {
                 var rect = this.querySelector('rect');
-                window.document.body.style;
-                for (var _i = 0, _a = Object.entries(el.options.style); _i < _a.length; _i++) {
+                for (var _i = 0, _a = Object.entries(el.options.rectStyle); _i < _a.length; _i++) {
                     var _b = _a[_i], key = _b[0], value = _b[1];
                     rect.style[key] = value;
                 }
             }
+            // Add styles to the text element if they were specified
+            if (el.options.textStyle) {
+                var text = this.querySelector('text');
+                for (var _c = 0, _d = Object.entries(el.options.textStyle); _c < _d.length; _c++) {
+                    var _e = _d[_c], key = _e[0], value = _e[1];
+                    text.style[key] = value;
+                }
+            }
             // now loop all listeners
-            for (var _c = 0, _d = el.listeners; _c < _d.length; _c++) {
-                var listener = _d[_c];
+            var d3Node = Object(d3["select"])(this);
+            for (var _f = 0, _g = el.listeners; _f < _g.length; _f++) {
+                var listener = _g[_f];
                 d3Node.on(listener.event, listener.callback);
             }
         });

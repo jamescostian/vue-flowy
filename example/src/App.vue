@@ -32,8 +32,14 @@ export default {
     const A = this.chart.addElement("A", { label: "vscode alsdkfj aslkdfj laksdj flkasdjf lkasdj flkasdjlf kjsdlk jflskadj f", style: { fill: "#ccc" } });
     const B = this.chart.addElement("B", { label: "asdlfiasjdlfkajdsfl;iajdf;lawekjfal;efjas;ldfjasdl;fkjasdl;kfjas d;lkjfas;l dkjfas ;ldkjf ;lasdkjf ;laskdj f;laksdjf l;kasdjf ;lksadjf asdkljf asd" });
     const C = this.chart.addElement("C", { label: "npm" });
+    const D = this.chart.addElement("D", {
+      label: "not sure what else",
+      rectStyle: { fill: "#444" },
+      textStyle: { fill: "white" }
+    });
     idea.leadsTo(A).leadsTo(B);
     A.leadsTo(C);
+    A.leadsTo(D);
 
     A.on("click", function() {
       console.log("click!");

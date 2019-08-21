@@ -6,7 +6,8 @@ import wrap from 'word-wrap'
 
 export interface FlowChartElementOptions {
   label?: string,
-  style?: ElementCSSInlineStyle
+  rectStyle?: ElementCSSInlineStyle,
+  textStyle?: ElementCSSInlineStyle
 }
 
 export interface FlowChartOptions {
@@ -104,16 +105,23 @@ export class FlowChart {
           throw new Error('Element with id ' + v + ' is not defined!')
         }
 
-        const d3Node = select(this)
-        if (el.options.style) {
+        // Add styles to the rectangle if they were specified
+        if (el.options.rectStyle) {
           const rect = (this as HTMLElement).querySelector('rect')!
-          window.document.body.style
-          for (const [key, value] of Object.entries(el.options.style)) {
+          for (const [key, value] of Object.entries(el.options.rectStyle)) {
             (rect.style as any)[key] = value
+          }
+        }
+        // Add styles to the text element if they were specified
+        if (el.options.textStyle) {
+          const text = (this as HTMLElement).querySelector('text')!
+          for (const [key, value] of Object.entries(el.options.textStyle)) {
+            (text.style as any)[key] = value
           }
         }
 
         // now loop all listeners
+        const d3Node = select(this)
         for (const listener of el.listeners) {
           d3Node.on(listener.event, listener.callback)
         }

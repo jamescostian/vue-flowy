@@ -2,7 +2,8 @@ import { FlowElement } from './FlowElement';
 import wrap from 'word-wrap';
 export interface FlowChartElementOptions {
     label?: string;
-    style?: ElementCSSInlineStyle;
+    rectStyle?: ElementCSSInlineStyle;
+    textStyle?: ElementCSSInlineStyle;
 }
 export interface FlowChartOptions {
     direction: 'LR' | 'TB' | 'BT' | 'RL';
